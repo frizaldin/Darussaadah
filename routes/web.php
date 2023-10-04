@@ -3,6 +3,8 @@
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HeaderController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\SkillController;
 use App\Http\Controllers\UserController;
 use App\Models\About;
 use App\Models\Gallery;
@@ -49,9 +51,30 @@ Route::controller(UserController::class)->group(function () {
     });
 });
 
+Route::controller(ServiceController::class)->group(function () {
+    Route::prefix('services')->group(function () {
+        Route::get('/', 'index');
+        Route::get('/add', 'add');
+        Route::get('/edit/{id}', 'edit');
+        Route::post('/create', 'create');
+        Route::post('/update', 'update');
+        Route::delete('/delete/{id}', 'delete');
+    });
+});
 Route::controller(GalleryController::class)->group(function () {
     Route::prefix('galleries')->group(function () {
         Route::get('/', 'index')->name('gallery.index');
+        Route::get('/add', 'add');
+        Route::get('/edit/{id}', 'edit');
+        Route::post('/create', 'create');
+        Route::post('/update', 'update');
+        Route::delete('/delete/{id}', 'delete');
+    });
+});
+
+Route::controller(SkillController::class)->group(function () {
+    Route::prefix('skill')->group(function () {
+        Route::get('/', 'index');
         Route::get('/add', 'add');
         Route::get('/edit/{id}', 'edit');
         Route::post('/create', 'create');
