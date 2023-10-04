@@ -263,6 +263,14 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{url('/edukasi')}}" class="nav-link">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    Edukasi
+                                </p>
+                            </a>
+                        </li>
 
                     </ul>
                 </nav>
