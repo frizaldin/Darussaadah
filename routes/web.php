@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EdukasiController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HeaderController;
@@ -43,70 +44,82 @@ Route::get('/backend', function () {
     return view('dashboard');
 });
 
-Route::controller(UserController::class)->group(function () {
-    Route::prefix('user')->group(function () {
-        Route::get('/', 'index');
-        Route::get('/add', 'add');
-        Route::get('/edit/{id}', 'edit');
-        Route::post('/create', 'create');
-        Route::post('/update', 'update');
-        Route::delete('/delete/{id}', 'delete');
-    });
+Route::controller(AuthController::class)->group(function () {
+    //Halaman Login
+    Route::get('/login', 'login');
+
+    //Process Login
+    Route::post('/process_login', 'process_login');
+
+    //Logout
+    Route::get('/logout', 'logout');
 });
 
-Route::controller(ServiceController::class)->group(function () {
-    Route::prefix('services')->group(function () {
-        Route::get('/', 'index');
-        Route::get('/add', 'add');
-        Route::get('/edit/{id}', 'edit');
-        Route::post('/create', 'create');
-        Route::post('/update', 'update');
-        Route::delete('/delete/{id}', 'delete');
-    });
-});
-Route::controller(EdukasiController::class)->group(function () {
-    Route::prefix('edukasi')->group(function () {
-        Route::get('/', 'index');
-        Route::get('/add', 'add');
-        Route::get('/edit/{id}', 'edit');
-        Route::post('/create', 'create');
-        Route::post('/update', 'update');
-        Route::delete('/delete/{id}', 'delete');
-    });
-});
-Route::controller(GalleryController::class)->group(function () {
-    Route::prefix('galleries')->group(function () {
-        Route::get('/', 'index')->name('gallery.index');
-        Route::get('/add', 'add');
-        Route::get('/edit/{id}', 'edit');
-        Route::post('/create', 'create');
-        Route::post('/update', 'update');
-        Route::delete('/delete/{id}', 'delete');
-    });
-});
+// Route::get('logout', [AuthController::class, 'logout']);
 
-Route::controller(SkillController::class)->group(function () {
-    Route::prefix('skill')->group(function () {
-        Route::get('/', 'index');
-        Route::get('/add', 'add');
-        Route::get('/edit/{id}', 'edit');
-        Route::post('/create', 'create');
-        Route::post('/update', 'update');
-        Route::delete('/delete/{id}', 'delete');
+//Middleware : Untuk membatasi akses pengguna yang tidak login
+Route::middleware('auth.middle')->group(function () {
+    Route::controller(UserController::class)->group(function () {
+        Route::prefix('user')->group(function () {
+            Route::get('/', 'index');
+            Route::get('/add', 'add');
+            Route::get('/edit/{id}', 'edit');
+            Route::post('/create', 'create');
+            Route::post('/update', 'update');
+            Route::delete('/delete/{id}', 'delete');
+        });
     });
-});
-
-Route::controller(AboutController::class)->group(function () {
-    Route::prefix('about-us')->group(function () {
-        Route::get('/', 'index');
-        Route::post('/update', 'update');
+    Route::controller(ServiceController::class)->group(function () {
+        Route::prefix('services')->group(function () {
+            Route::get('/', 'index');
+            Route::get('/add', 'add');
+            Route::get('/edit/{id}', 'edit');
+            Route::post('/create', 'create');
+            Route::post('/update', 'update');
+            Route::delete('/delete/{id}', 'delete');
+        });
     });
-});
-
-Route::controller(HeaderController::class)->group(function () {
-    Route::prefix('headers')->group(function () {
-        Route::get('/', 'index');
-        Route::post('/update', 'update');
+    Route::controller(EdukasiController::class)->group(function () {
+        Route::prefix('edukasi')->group(function () {
+            Route::get('/', 'index');
+            Route::get('/add', 'add');
+            Route::get('/edit/{id}', 'edit');
+            Route::post('/create', 'create');
+            Route::post('/update', 'update');
+            Route::delete('/delete/{id}', 'delete');
+        });
+    });
+    Route::controller(GalleryController::class)->group(function () {
+        Route::prefix('galleries')->group(function () {
+            Route::get('/', 'index')->name('gallery.index');
+            Route::get('/add', 'add');
+            Route::get('/edit/{id}', 'edit');
+            Route::post('/create', 'create');
+            Route::post('/update', 'update');
+            Route::delete('/delete/{id}', 'delete');
+        });
+    });
+    Route::controller(SkillController::class)->group(function () {
+        Route::prefix('skill')->group(function () {
+            Route::get('/', 'index');
+            Route::get('/add', 'add');
+            Route::get('/edit/{id}', 'edit');
+            Route::post('/create', 'create');
+            Route::post('/update', 'update');
+            Route::delete('/delete/{id}', 'delete');
+        });
+    });
+    Route::controller(AboutController::class)->group(function () {
+        Route::prefix('about-us')->group(function () {
+            Route::get('/', 'index');
+            Route::post('/update', 'update');
+        });
+    });
+    Route::controller(HeaderController::class)->group(function () {
+        Route::prefix('headers')->group(function () {
+            Route::get('/', 'index');
+            Route::post('/update', 'update');
+        });
     });
 });
 

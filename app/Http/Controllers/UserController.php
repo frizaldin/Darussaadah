@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -41,7 +42,9 @@ class UserController extends Controller
         //get data dari inputan
         $name = $request->name;
         $email = $request->email;
-        $password = $request->password;
+
+        // Encrypt Password Manual
+        $password = Hash::make($request->password);
 
         // User::create($request->all());
 
@@ -72,7 +75,9 @@ class UserController extends Controller
         $id = $request->id;
         $name = $request->name;
         $email = $request->email;
-        $password = $request->password;
+
+        //Encrypt Password Manual
+        $password = Hash::make($request->password);
 
         //temukan data user berdasarkan id
         $user = User::find($id);
