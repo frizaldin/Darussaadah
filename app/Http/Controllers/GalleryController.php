@@ -10,7 +10,8 @@ class GalleryController extends Controller
     function index()
     {
         return view('backend.gallery.index', [
-            'gallery' => Gallery::get()
+            //Pagination : memfilter data per page dengan 10 data/page
+            'gallery' => Gallery::paginate(10)
         ]);
     }
 
