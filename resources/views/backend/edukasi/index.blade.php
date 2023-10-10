@@ -39,6 +39,7 @@
                 </tbody>
             </table>
         </div>
+        {{ $edukasi->links('vendor.pagination.custom') }}
         <!-- /.card-body -->
         <!-- <div class="card-footer clearfix">
             <ul class="pagination pagination-sm m-0 float-right">

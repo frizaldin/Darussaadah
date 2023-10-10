@@ -10,7 +10,7 @@ class EdukasiController extends Controller
     function index()
     {
         return view('backend.edukasi.index', [
-            'edukasi' => Edukasi::get()
+            'edukasi' => Edukasi::paginate(10)
         ]);
     }
 

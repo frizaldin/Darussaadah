@@ -2,7 +2,21 @@
     <a href="{{url('galleries/add')}}" class="btn btn-primary mb-5">Tambah Data</a> <br>
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Gallery</h3>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h3 class="card-title">Gallery</h3>
+                </div>
+
+                <div class="col-md-6">
+                    <form action="" method="GET">
+                        @csrf
+                        <input type="text" name="keyword" class="form-control" placeholder="Cari Nama">
+                        <button type="submit" class="btn btn-primary">Cari</button>
+                    </form>
+                </div>
+            </div>
+
         </div>
         <!-- /.card-header -->
         <div class="card-body">

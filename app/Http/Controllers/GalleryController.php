@@ -7,11 +7,17 @@ use Illuminate\Http\Request;
 
 class GalleryController extends Controller
 {
-    function index()
+    function index(Request $request)
     {
         return view('backend.gallery.index', [
             //Pagination : memfilter data per page dengan 10 data/page
-            'gallery' => Gallery::paginate(10)
+            'gallery' => Gallery::where([
+                [function ($query) use ($request) {
+                    if ($request->keyword) {
+                        $query->where('judul', 'LIKE', '%' . $request->keyword . '%');
+                    }
+                }]
+            ])->paginate(10)
         ]);
     }
 
